@@ -1,8 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import registerCover from "../assets/auth.jpg"; // Image for registration page
+import { AuthContext } from "../contexts/AuthProvider";
 
 const Register = () => {
+  const {createUser,setUser} = useContext(AuthContext)
   const navigate = useNavigate(); // Use navigate for programmatic navigation
 
   const handleRegister = (e) => {
@@ -14,7 +16,15 @@ const Register = () => {
     const password = form.password.value;
     const user = {name, email, photoURL, password}
     console.log(user)
-    
+
+    createUser(email, password)
+    .then(result => {
+      console.log(result.user);
+      setUser(result.user)
+    })
+    .catch(error => console.log(error))
+
+
   };
 
   return (

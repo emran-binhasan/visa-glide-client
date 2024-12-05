@@ -1,42 +1,25 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { FaArrowLeft } from "react-icons/fa"; // Icon for "Back to Home"
 import loginCover from "../assets/auth.jpg"; // Replace with a suitable image path
 import logo from "../assets/logo.svg"; // Path to your logo
+import { AuthContext } from "../contexts/AuthProvider";
 
 const Login = () => {
-  const navigate = useNavigate(); // Use navigate for programmatic navigation
-  const [isDarkMode, setIsDarkMode] = useState(false); // Track dark mode state
-
-  // Handle theme change and persist to localStorage
-  useEffect(() => {
-    const savedTheme = localStorage.getItem("theme");
-    if (savedTheme === "dark") {
-      setIsDarkMode(true);
-      document.documentElement.classList.add("dark");
-    } else {
-      setIsDarkMode(false);
-      document.documentElement.classList.remove("dark");
-    }
-  }, []);
-
-  const toggleTheme = () => {
-    setIsDarkMode((prevMode) => {
-      const newMode = !prevMode;
-      if (newMode) {
-        document.documentElement.classList.add("dark");
-        localStorage.setItem("theme", "dark");
-      } else {
-        document.documentElement.classList.remove("dark");
-        localStorage.setItem("theme", "light");
-      }
-      return newMode;
-    });
-  };
+  const{loginUser,setUser} = useContext(AuthContext)
+  const navigate = useNavigate(); 
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Handle form submission logic here
+    const form = e.target;
+    const email = form.email.value;
+    const password = form.password.value;
+    loginUser(email, password)
+    .then(result => {
+      console.log(result.user);
+      setUser(result.user)
+    })
+    .catch(error => console.log(error))
   };
 
   return (
