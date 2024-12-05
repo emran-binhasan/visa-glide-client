@@ -26,12 +26,12 @@ const NotFound = () => {
           404
         </motion.h1>
         <motion.p
-          className="text-lg text-gray-600 mt-4 mb-6"
+          className="text-md md:text-lg text-gray-600 mt-4 mb-6"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5, delay: 0.4 }}
         >
-          Oops! The page you are looking for doesn't exist. Please check the URL or return to the homepage.
+           Oops! The page you are looking for doesn't exist. Please check the URL again or return to the homepage.
         </motion.p>
 
         {/* Return to Home Button with animation */}
@@ -43,7 +43,7 @@ const NotFound = () => {
         >
           <Link
             to="/"
-            className="inline-block px-8 py-3 bg-gradient-to-r from-teal-400 via-blue-500 to-indigo-600 text-white rounded-full text-lg font-medium shadow-md hover:from-teal-500 hover:to-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all duration-300 ease-in-out"
+            className="inline-block px-4 md:px-8 py-2 md:py-3 bg-gradient-to-r from-teal-400 via-blue-500 to-indigo-600 text-white rounded-lg text-lg font-medium shadow-md hover:from-teal-500 hover:to-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all duration-300 ease-in-out"
           >
             Go Back Home
           </Link>
