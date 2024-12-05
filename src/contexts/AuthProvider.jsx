@@ -3,6 +3,9 @@ export const AuthContext = createContext();
 
 const AuthProvider = ({children}) => {
     const authInfo = {title:'hello world'};
+    const createUser = (email,password) => {
+        return createUser;
+    }
 
     return (
         <AuthContext.Provider value={authInfo}>

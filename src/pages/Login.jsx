@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { FaArrowLeft } from "react-icons/fa"; // Icon for "Back to Home"
-import loginCover from "../assets/pexels-adi-k-182036-15435861.jpg"; // Replace with a suitable image path
+import loginCover from "../assets/auth.jpg"; // Replace with a suitable image path
 import logo from "../assets/logo.svg"; // Path to your logo
 
 const Login = () => {
