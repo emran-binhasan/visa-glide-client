@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Fade } from "react-awesome-reveal";
+import { AuthContext } from "../contexts/AuthProvider";
 
 const AddVisa = () => {
+  const{user} = useContext(AuthContext)
   const handleAddVisa = (e) => {
     e.preventDefault();
     const form = e.target;
@@ -20,6 +22,8 @@ const AddVisa = () => {
 
     const description = form.description.value;
 
+    const uid = user.uid;
+
     const visa = {
       countryName,
       countryImage,
@@ -30,6 +34,7 @@ const AddVisa = () => {
       validity,
       requiredDocuments,
       description,
+      uid
     };
 
     fetch('http://localhost:5000/visas',{

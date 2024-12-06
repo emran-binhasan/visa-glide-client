@@ -31,7 +31,7 @@ const VisaDetails = () => {
     const uid = user.uid;
     const application = {email, firstName, lastName, date, fee, uid};
     console.log(application)
-    fetch('http://localhost:5000/applications',{
+    fetch(`http://localhost:5000/applications/`,{
         method:'POST',
         headers:{
             'content-type':'application/json'

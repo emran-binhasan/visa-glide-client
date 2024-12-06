@@ -1,16 +1,17 @@
 import { createBrowserRouter } from "react-router-dom";
-import MainLayout from "./layouts/MainLayout";
-import AuthLayout from "./layouts/AuthLayout";
-import Login from "./pages/Login";
-import Register from './pages/Register'
-import Home from "./pages/Home";
-import AllVisa from "./pages/AllVisa";
-import AddVisa from "./pages/AddVisa";
-import NotFound from "./pages/NotFound";
-import AddedVisas from "./pages/AddedVisas";
-import Applications from "./pages/Applications";
-import VisaDetails from "./pages/VisaDetails";
-export const router = createBrowserRouter([
+import MainLayout from "../layouts/MainLayout";
+import AuthLayout from "../layouts/AuthLayout";
+import Login from "../pages/Login";
+import Register from '../pages/Register'
+import Home from "../pages/Home";
+import AllVisa from "../pages/AllVisa";
+import AddVisa from "../pages/AddVisa";
+import NotFound from "../pages/NotFound";
+import AddedVisas from "../pages/AddedVisas";
+import Applications from "../pages/Applications";
+import VisaDetails from "../pages/VisaDetails";
+import PrivateRoute from "./PrivateRoute";
+export const Router = createBrowserRouter([
   {
     path: "/",
     element: <MainLayout/>,
@@ -26,15 +27,15 @@ export const router = createBrowserRouter([
         },
         {
             path:'add-visa',
-            element:<AddVisa/>
+            element:<PrivateRoute><AddVisa/></PrivateRoute>
         },
         {
           path:'added-visas',
-          element:<AddedVisas/>
+          element:<PrivateRoute><AddedVisas/></PrivateRoute>
         },
         {
           path:'applications',
-          element:<Applications/>
+          element:<PrivateRoute><Applications/>,</PrivateRoute>
         },
         {
           path:'visa/:id',

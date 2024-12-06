@@ -5,12 +5,12 @@ import logo from "../assets/logo.svg";
 import { AuthContext } from "../contexts/AuthProvider";
 
 const Header = () => {
-  const { user ,logOutUser} = useContext(AuthContext);
+  const { user, logOutUser } = useContext(AuthContext);
   console.log(user);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(false); // Track dark mode state
 
-  // Handle theme change and persist to localStorage
+  
   useEffect(() => {
     const savedTheme = localStorage.getItem("theme");
     if (savedTheme === "dark") {
@@ -52,30 +52,29 @@ const Header = () => {
         All visa
         <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gray-900 transition-all duration-300 group-hover:w-full"></span>
       </NavLink>
+      <NavLink
+        to="/add-visa"
+        className="text-gray-700 hover:text-gray-900 group relative"
+      >
+        Add Visa
+        <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gray-900 transition-all duration-300 group-hover:w-full"></span>
+      </NavLink>
+      <NavLink
+        to="added-visas"
+        className="text-gray-700 hover:text-gray-900 group relative"
+      >
+        Added Visas
+        <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gray-900 transition-all duration-300 group-hover:w-full"></span>
+      </NavLink>
+      <NavLink
+        to="applications"
+        className="text-gray-700 hover:text-gray-900 group relative"
+      >
+        Applications
+        <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gray-900 transition-all duration-300 group-hover:w-full"></span>
+      </NavLink>
       {user ? (
         <>
-          {" "}
-          <NavLink
-            to="/add-visa"
-            className="text-gray-700 hover:text-gray-900 group relative"
-          >
-            Add Visa
-            <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gray-900 transition-all duration-300 group-hover:w-full"></span>
-          </NavLink>
-          <NavLink
-            to="added-visas"
-            className="text-gray-700 hover:text-gray-900 group relative"
-          >
-            Added Visas
-            <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gray-900 transition-all duration-300 group-hover:w-full"></span>
-          </NavLink>
-          <NavLink
-            to="applications"
-            className="text-gray-700 hover:text-gray-900 group relative"
-          >
-            Applications
-            <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gray-900 transition-all duration-300 group-hover:w-full"></span>
-          </NavLink>
           <button onClick={logOutUser}>Logout</button>
         </>
       ) : (
@@ -87,6 +86,7 @@ const Header = () => {
             Register
             <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gray-900 transition-all duration-300 group-hover:w-full"></span>
           </NavLink>
+
           <NavLink
             to="auth/login"
             className="text-gray-700 hover:text-gray-900 group relative"
