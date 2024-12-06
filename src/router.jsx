@@ -9,6 +9,7 @@ import AddVisa from "./pages/AddVisa";
 import NotFound from "./pages/NotFound";
 import AddedVisas from "./pages/AddedVisas";
 import Applications from "./pages/Applications";
+import VisaDetails from "./pages/VisaDetails";
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -34,6 +35,11 @@ export const router = createBrowserRouter([
         {
           path:'applications',
           element:<Applications/>
+        },
+        {
+          path:'visa/:id',
+          element:<VisaDetails/>,
+          loader:({params})=> fetch(`http://localhost:5000/visas/${params.id}`)
         }
     ]
   },
