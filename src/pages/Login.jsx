@@ -1,9 +1,8 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { FaArrowLeft } from "react-icons/fa"; // Icon for "Back to Home"
-import loginCover from "../assets/auth.jpg"; // Replace with a suitable image path
-import logo from "../assets/logo.svg"; // Path to your logo
+import loginCover from "../assets/auth.jpg";
 import { AuthContext } from "../contexts/AuthProvider";
+import Swal from 'sweetalert2'
 
 const Login = () => {
   const{loginUser,setUser} = useContext(AuthContext)
@@ -16,8 +15,15 @@ const Login = () => {
     const password = form.password.value;
     loginUser(email, password)
     .then(result => {
-      console.log(result.user);
-      setUser(result.user)
+      const user = result.user
+      console.log(user);
+      setUser(user);
+      Swal.fire({
+        title: `Welcome ${user == null?user.displayName:''}`,
+        text: "You have signed in succesfully!",
+        icon: "success"
+      });
+      navigate('/')
     })
     .catch(error => console.log(error))
   };

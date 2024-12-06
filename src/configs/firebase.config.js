@@ -2,15 +2,17 @@
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { getAuth } from 'firebase/auth'
+
 const firebaseConfig = {
-  apiKey: "AIzaSyDdDTJPaVKnJNs7K5v8DftRBIHrGtMrFZA",
-  authDomain: "visa-glide.firebaseapp.com",
-  projectId: "visa-glide",
-  storageBucket: "visa-glide.firebasestorage.app",
-  messagingSenderId: "496543058414",
-  appId: "1:496543058414:web:c6048364038d8e7041e6ff",
-  measurementId: "G-1WRM9NSHMD"
+  apiKey: import.meta.env.VITE_API_KEY,
+  authDomain: import.meta.env.VITE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_APP_ID,
+  measurementId:import.meta.env.VITE_APP_MEASUREMENT_ID
 };
+
 
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);

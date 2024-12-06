@@ -20,7 +20,8 @@ export const router = createBrowserRouter([
         },
         {
             path:'all-visa',
-            element:<AllVisa/>
+            element:<AllVisa/>,
+            loader:()=> fetch('http://localhost:5000/visas')
         },
         {
             path:'add-visa',

@@ -19,8 +19,18 @@ const Register = () => {
 
     createUser(email, password)
     .then(result => {
+      fetch('http://localhost:5000/users',{
+        method:'POST',
+        headers:{
+          'content-type':'application/json'
+        },
+        body:JSON.stringify(user)
+      })
+      .then(res=>res.json)
+      .then(data => console.log(data))
       console.log(result.user);
       setUser(result.user)
+      navigate('/')
     })
     .catch(error => console.log(error))
 
