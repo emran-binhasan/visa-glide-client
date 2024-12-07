@@ -52,7 +52,7 @@ const LatestVisas = () => {
               </p>
               <button
                 className="mt-4 bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors"
-                onClick={() => navigate(`/visa-details/${visa.id}`)}
+                onClick={() => navigate(`/visa/${visa._id}`)}
               >
                 See Details
               </button>

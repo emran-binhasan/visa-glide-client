@@ -5,19 +5,21 @@ import 'react-toastify/dist/ReactToastify.css'
 import loginCover from "../assets/auth.jpg";
 import { AuthContext } from "../contexts/AuthProvider";
 import Swal from 'sweetalert2'
+import { GoogleAuthProvider } from "firebase/auth";
 
 const Login = () => {
-  const{loginUser,setUser,setLoading} = useContext(AuthContext)
+  const{loginUser,setUser,setLoading,handleGoogleSignIn} = useContext(AuthContext)
   const navigate = useNavigate();
   const location = useLocation();
-  const handleSubmit = (e) => {
+  
+  const handleLogin = (e) => {
     e.preventDefault();
     const form = e.target;
     const email = form.email.value;
     const password = form.password.value;
     loginUser(email, password)
     .then(result => {
-      const user = result.user
+      const user = result.user;
       console.log(user);
       setUser(user);
       Swal.fire({
@@ -33,6 +35,8 @@ const Login = () => {
       toast.error(error.message); // Show error message with React Toastify
     });
   };
+
+ 
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-50 dark:bg-gray-900 relative">
@@ -58,7 +62,7 @@ const Login = () => {
               Welcome back! Please login to access your account.
             </p>
 
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleLogin}>
               {/* Email */}
               <input
                 type="email"
@@ -93,6 +97,17 @@ const Login = () => {
                 Login
               </button>
             </form>
+
+
+            {/* Google Sign-In Button */}
+            <div className="mt-4">
+              <button
+                onClick={handleGoogleSignIn}
+                className="btn bg-red-500 hover:bg-red-600 w-full text-white py-3 text-lg font-semibold transition-all duration-300"
+              >
+                Sign in with Google
+              </button>
+            </div>
 
             <p className="text-center text-gray-600 mt-4 dark:text-gray-400">
               Don't have an account?{" "}

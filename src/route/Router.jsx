@@ -11,58 +11,64 @@ import AddedVisas from "../pages/AddedVisas";
 import Applications from "../pages/Applications";
 import VisaDetails from "../pages/VisaDetails";
 import PrivateRoute from "./PrivateRoute";
+import PublicRoute from "./PublicRoute";
+import { Navigate } from "react-router-dom"; // Import Navigate
 
 export const Router = createBrowserRouter([
   {
     path: "/",
-    element: <MainLayout/>,
-    children:[
-        {
-            path:'/',
-            element:<Home/>
-        },
-        {
-            path:'all-visa',
-            element:<AllVisa/>,
-            loader:()=> fetch('http://localhost:5000/visas')
-        },
-        {
-            path:'add-visa',
-            element:<PrivateRoute><AddVisa/></PrivateRoute>
-        },
-        {
-          path:`added-visas/`,
-          element:<PrivateRoute><AddedVisas/></PrivateRoute>,
-          loader:()=>fetch('http://localhost:5000/visas')
-        },
-        {
-          path:'applications',
-          element:<PrivateRoute><Applications/>,</PrivateRoute>,
-          loader:()=>fetch('http://localhost:5000/visas')
-        },
-        {
-          path:'visa/:id',
-          element:<PrivateRoute><VisaDetails/></PrivateRoute>,
-          loader:({params})=> fetch(`http://localhost:5000/visa/${params.id}`)
-        }
+    element: <MainLayout />,
+    children: [
+      {
+        path: "/",
+        element: <Home />
+      },
+      {
+        path: "all-visa",
+        element: <AllVisa />,
+        loader: () => fetch("http://localhost:5000/visas")
+      },
+      {
+        path: "add-visa",
+        element: <PrivateRoute><AddVisa /></PrivateRoute>
+      },
+      {
+        path: `added-visas/`,
+        element: <PrivateRoute><AddedVisas /></PrivateRoute>,
+        loader: () => fetch("http://localhost:5000/visas")
+      },
+      {
+        path: "applications",
+        element: <PrivateRoute><Applications /></PrivateRoute>,
+        loader: () => fetch("http://localhost:5000/visas")
+      },
+      {
+        path: "visa/:id",
+        element: <PrivateRoute><VisaDetails /></PrivateRoute>,
+        loader: ({ params }) => fetch(`http://localhost:5000/visa/${params.id}`)
+      }
     ]
   },
   {
     path: "/auth",
-    element: <AuthLayout />,
+    element: <PublicRoute><AuthLayout /></PublicRoute>,
     children: [
       {
+        path: "",
+        element: <Navigate to="login" replace /> // Redirect from /auth to /auth/login
+      },
+      {
         path: "login",
-        element: <Login />,
+        element:<Login />
       },
       {
         path: "register",
         element: <Register />
-      },
-    ],
+      }
+    ]
   },
   {
-    path:'*',
-    element:<NotFound/>
+    path: "*",
+    element: <NotFound />
   }
 ]);

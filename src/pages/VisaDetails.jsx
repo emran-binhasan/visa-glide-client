@@ -14,34 +14,46 @@ const VisaDetails = () => {
     processingTime,
     description,
     requiredDocuments,
-    applicationMethods
+    applicationMethods,
   } = visa;
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const date = new Date().toISOString().split("T")[0];
- 
 
-  const handleAddVisa = e => {
+  const handleAddVisa = (e) => {
     e.preventDefault();
     const form = e.target;
     const email = form.email.value;
     const firstName = form.firstName.value;
     const lastName = form.lastName.value;
-    const applyDate =  form.date.value;
+    const applyDate = form.date.value;
     const fee = form.fee.value;
     const uid = user.uid;
-    const application = {countryName, countryImage, email,validity, visaType, processingTime,applicationMethods,validity, firstName, lastName, applyDate, fee, uid,};
-    console.log(application)
-    fetch(`http://localhost:5000/applications/`,{
-        method:'POST',
-        headers:{
-            'content-type':'application/json'
-        },
-        body:JSON.stringify(application)
-    }).then(res => res.json())
-    .then(result => console.log(result));
-    setIsModalOpen(false)
-    
+    const application = {
+      countryName,
+      countryImage,
+      email,
+      visaType,
+      processingTime,
+      applicationMethods,
+      validity,
+      firstName,
+      lastName,
+      applyDate,
+      fee,
+      uid,
+    };
+    console.log(application);
+    fetch(`http://localhost:5000/applications/`, {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(application),
+    })
+      .then((res) => res.json())
+      .then((result) => console.log(result));
+    setIsModalOpen(false);
   };
 
   return (
@@ -89,7 +101,7 @@ const VisaDetails = () => {
       {applicationMethods && applicationMethods.length > 0 && (
         <div className="mt-6">
           <h2 className="text-xl font-medium text-gray-800 mb-3">
-          Application Methods
+            Application Methods
           </h2>
           <ul className="list-disc list-inside text-gray-600 space-y-2">
             {applicationMethods.map((each, index) => (
@@ -98,8 +110,6 @@ const VisaDetails = () => {
           </ul>
         </div>
       )}
-      
-
 
       <div className="mt-8">
         <button
