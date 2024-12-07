@@ -7,7 +7,27 @@ const AddVisa = () => {
   const handleAddVisa = (e) => {
     e.preventDefault();
     const form = e.target;
-
+  
+    // Validation for at least one checkbox selected in "Required Documents"
+    const requiredDocuments = Array.from(form.requiredDocuments)
+      .filter((checkbox) => checkbox.checked)
+      .map((checkbox) => checkbox.value);
+  
+    if (requiredDocuments.length === 0) {
+      alert("Please select at least one required document.");
+      return;
+    }
+  
+    // Validation for at least one checkbox selected in "Application Methods"
+    const applicationMethods = Array.from(form.applicationMethods)
+      .filter((checkbox) => checkbox.checked)
+      .map((checkbox) => checkbox.value);
+  
+    if (applicationMethods.length === 0) {
+      alert("Please select at least one application method.");
+      return;
+    }
+  
     const countryName = form.countryName.value;
     const countryImage = form.countryImage.value;
     const visaType = form.visaType.value;
@@ -15,15 +35,9 @@ const AddVisa = () => {
     const ageRestriction = form.ageRestriction.value;
     const fee = form.fee.value;
     const validity = form.validity.value;
-
-    const requiredDocuments = Array.from(form.requiredDocuments)
-    .filter((checkbox)=> checkbox.checked)
-    .map((checkbox)=>checkbox.value)
-
-    const description = form.description.value;
-
+  
     const uid = user.uid;
-
+  
     const visa = {
       countryName,
       countryImage,
@@ -33,20 +47,22 @@ const AddVisa = () => {
       fee,
       validity,
       requiredDocuments,
+      applicationMethods,
       description,
       uid
     };
-
-    fetch('http://localhost:5000/visas',{
-      method:'POST',
-      headers:{
-        'content-type':'application/json'
+  
+    fetch('http://localhost:5000/visas', {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json'
       },
-      body:JSON.stringify(visa)
+      body: JSON.stringify(visa)
     })
-    .then(res => res.json())
-    .then(data => console.log(data))
+      .then(res => res.json())
+      .then(data => console.log(data));
   };
+  
 
   return (
     <div className="container mx-auto p-4">
@@ -179,6 +195,30 @@ const AddVisa = () => {
                     className="checkbox checkbox-primary"
                   />
                   <span className="ml-2 text-gray-700 dark:text-gray-300">{doc}</span>
+                </label>
+              ))}
+            </div>
+          </div>
+
+          <div className="form-control">
+            <label className="label font-medium text-gray-600 dark:text-gray-300">
+              Application Method
+            </label>
+            <div className="flex flex-wrap gap-4">
+              {[
+                "Online",
+                "In-person",
+                "Postal",
+                "Visa on Arrival",
+              ].map((method) => (
+                <label key={method} className="inline-flex items-center">
+                  <input
+                    type="checkbox"
+                    name="applicationMethods"
+                    value={method}
+                    className="checkbox checkbox-primary"
+                  />
+                  <span className="ml-2 text-gray-700 dark:text-gray-300">{method}</span>
                 </label>
               ))}
             </div>

@@ -1,12 +1,11 @@
-import React, { useState, useEffect, useContext } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React, { useContext } from "react";
+import { Link, Navigate } from "react-router-dom";
 import loginCover from "../assets/auth.jpg";
 import { AuthContext } from "../contexts/AuthProvider";
 import Swal from 'sweetalert2'
 
 const Login = () => {
   const{loginUser,setUser} = useContext(AuthContext)
-  const navigate = useNavigate(); 
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -23,7 +22,7 @@ const Login = () => {
         text: "You have signed in succesfully!",
         icon: "success"
       });
-      navigate('/')
+      <Navigate to={location.state?location.state:'/'} replace />
     })
     .catch(error => console.log(error))
   };

@@ -1,13 +1,15 @@
-import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signOut } from "firebase/auth";
+import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signOut, updateProfile } from "firebase/auth";
 import { createContext, useEffect, useState } from "react";
 import { auth } from "../configs/firebase.config";
+import { useNavigate } from "react-router-dom";
 export const AuthContext = createContext();
 
 const AuthProvider = ({children}) => {
 
     const[user, setUser] = useState(null);
     const[loading, setLoading] = useState(true);
-    console.log(loading)
+
+
     
     const createUser = (email, password) => {
         return createUserWithEmailAndPassword(auth, email, password)
@@ -17,6 +19,13 @@ const AuthProvider = ({children}) => {
         return signInWithEmailAndPassword(auth, email, password)
     }
 
+    const updateData = async (updatedUserData) => {
+        if (auth.currentUser) {
+            await updateProfile(auth.currentUser, updatedUserData);
+            setUser({ ...auth.currentUser, ...updatedUserData }); // Update local user state
+        }
+    };
+    
     const logOutUser = () =>
         signOut(auth)
     .then(()=>console.log('Signed Out'))
@@ -31,7 +40,7 @@ const AuthProvider = ({children}) => {
         return ()=> unsubscribe()
     },[])
 
-    const authInfo = {createUser,loginUser,user,setUser,logOutUser,loading,setLoading};
+    const authInfo = {createUser,loginUser,user,setUser,logOutUser,loading,setLoading,updateData};
 
     return (
         <AuthContext.Provider value={authInfo}>

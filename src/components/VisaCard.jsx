@@ -6,7 +6,7 @@ const VisaCard = ({ visa }) => {
 
   const handleVisaDetails =async id =>{
     console.log(id);
-    await fetch(`http://localhost:5000/visas/${id}`,{
+    await fetch(`http://localhost:5000/visa/${id}`,{
         method:'GET',
         headers:{
             'content-type':'application/json'

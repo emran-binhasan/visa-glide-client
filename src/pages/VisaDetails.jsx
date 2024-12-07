@@ -14,6 +14,7 @@ const VisaDetails = () => {
     processingTime,
     description,
     requiredDocuments,
+    applicationMethods
   } = visa;
 
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -26,10 +27,10 @@ const VisaDetails = () => {
     const email = form.email.value;
     const firstName = form.firstName.value;
     const lastName = form.lastName.value;
-    const date =  form.date.value;
+    const applyDate =  form.date.value;
     const fee = form.fee.value;
     const uid = user.uid;
-    const application = {email, firstName, lastName, date, fee, uid};
+    const application = {countryName, countryImage, email,validity, visaType, processingTime,applicationMethods,validity, firstName, lastName, applyDate, fee, uid,};
     console.log(application)
     fetch(`http://localhost:5000/applications/`,{
         method:'POST',
@@ -85,6 +86,21 @@ const VisaDetails = () => {
           </ul>
         </div>
       )}
+      {applicationMethods && applicationMethods.length > 0 && (
+        <div className="mt-6">
+          <h2 className="text-xl font-medium text-gray-800 mb-3">
+          Application Methods
+          </h2>
+          <ul className="list-disc list-inside text-gray-600 space-y-2">
+            {applicationMethods.map((each, index) => (
+              <li key={index}>{each}</li>
+            ))}
+          </ul>
+        </div>
+      )}
+      
+
+
       <div className="mt-8">
         <button
           className="btn btn-primary w-full"

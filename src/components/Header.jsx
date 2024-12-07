@@ -1,16 +1,16 @@
 import React, { useState, useEffect, useContext } from "react";
 import { NavLink } from "react-router-dom";
 import { FaBars, FaTimes, FaSun, FaMoon } from "react-icons/fa";
+import { Tooltip } from "react-tooltip";
+import "react-tooltip/dist/react-tooltip.css";
 import logo from "../assets/logo.svg";
 import { AuthContext } from "../contexts/AuthProvider";
 
 const Header = () => {
   const { user, logOutUser } = useContext(AuthContext);
-  console.log(user);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isDarkMode, setIsDarkMode] = useState(false); // Track dark mode state
+  const [isDarkMode, setIsDarkMode] = useState(false);
 
-  
   useEffect(() => {
     const savedTheme = localStorage.getItem("theme");
     if (savedTheme === "dark") {
@@ -74,9 +74,29 @@ const Header = () => {
         <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gray-900 transition-all duration-300 group-hover:w-full"></span>
       </NavLink>
       {user ? (
-        <>
-          <button onClick={logOutUser}>Logout</button>
-        </>
+        <div>
+          {/* User Photo with Tooltip */}
+          <img
+            src={user?.photoURL || "https://via.placeholder.com/40"}
+            alt={user?.displayName || "User"}
+            data-tooltip-id="user-tooltip"
+            className="h-10 w-10 rounded-full cursor-pointer"
+          />
+          {/* Tooltip Content */}
+          <Tooltip
+            id="user-tooltip"
+            clickable
+            className="flex flex-col items-center p-2 bg-gray-800 text-white rounded"
+          >
+            <p>{user.displayName || "User"}</p>
+            <button
+              onClick={logOutUser}
+              className="mt-2 bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600"
+            >
+              Logout
+            </button>
+          </Tooltip>
+        </div>
       ) : (
         <>
           <NavLink
@@ -107,7 +127,7 @@ const Header = () => {
     <header className="flex justify-between container mx-auto items-center p-2 border-black border z-50 relative bg-white dark:bg-gray-800">
       {/* Left Section (Logo + Theme Toggle) */}
       <div className="flex items-center gap-4">
-        {/* Theme Toggle Button (for larger screens) */}
+        {/* Theme Toggle Button */}
         <button
           onClick={toggleTheme}
           className="hidden md:block text-gray-700 mr-4"
@@ -137,14 +157,6 @@ const Header = () => {
           <FaBars className="h-6 w-6" />
         )}
       </button>
-
-      {/* Mobile Menu Overlay */}
-      <div
-        className={`md:hidden fixed inset-0 bg-gray-800 bg-opacity-50 transition-opacity duration-300 z-40 ${
-          isMenuOpen ? "opacity-100" : "opacity-0 pointer-events-none"
-        }`}
-        onClick={toggleMenu}
-      ></div>
 
       {/* Mobile Navigation Drawer */}
       <div

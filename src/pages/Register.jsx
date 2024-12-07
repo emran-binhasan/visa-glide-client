@@ -4,21 +4,28 @@ import registerCover from "../assets/auth.jpg"; // Image for registration page
 import { AuthContext } from "../contexts/AuthProvider";
 
 const Register = () => {
-  const {createUser,setUser} = useContext(AuthContext)
+  const {createUser,setUser,updateData} = useContext(AuthContext)
   const navigate = useNavigate(); // Use navigate for programmatic navigation
 
   const handleRegister = (e) => {
     e.preventDefault();
     const form = e.target;
-    const name = form.firstName.value;+' '+form.lastName.value;
+    const firstName = form.firstName.value;
+    const lastName = form.lastName.value;
     const email = form.email.value;
     const photoURL = form.photoURL.value;
     const password = form.password.value;
-    const user = {name, email, photoURL, password}
+    const user = {firstName,lastName, email, photoURL, password}
     console.log(user)
 
     createUser(email, password)
     .then(result => {
+      const user = result.user;
+      setUser(user)
+      updateData({
+        displayName:firstName+''+lastName,
+        photoURL:photoURL
+      })
       fetch('http://localhost:5000/users',{
         method:'POST',
         headers:{
@@ -28,8 +35,7 @@ const Register = () => {
       })
       .then(res=>res.json)
       .then(data => console.log(data))
-      console.log(result.user);
-      setUser(result.user)
+      console.log(user);
       navigate('/')
     })
     .catch(error => console.log(error))
