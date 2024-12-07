@@ -1,11 +1,18 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import registerCover from "../assets/auth.jpg"; // Image for registration page
+import { toast, ToastContainer } from 'react-toastify'; // Import React Toastify
+import 'react-toastify/dist/ReactToastify.css'
 import { AuthContext } from "../contexts/AuthProvider";
+import registerCover from "../assets/auth.jpg";
 
 const Register = () => {
-  const {createUser,setUser,updateData} = useContext(AuthContext)
+  const { createUser, setUser, updateData } = useContext(AuthContext);
   const navigate = useNavigate(); // Use navigate for programmatic navigation
+
+  const validatePassword = (password) => {
+    // Password must have at least one uppercase letter, one lowercase letter, and 6 or more characters
+    return /^(?=.*[A-Z])(?=.*[a-z]).{6,}$/.test(password);
+  };
 
   const handleRegister = (e) => {
     e.preventDefault();
@@ -15,36 +22,53 @@ const Register = () => {
     const email = form.email.value;
     const photoURL = form.photoURL.value;
     const password = form.password.value;
-    const user = {firstName,lastName, email, photoURL, password}
-    console.log(user)
+    const confirmPassword = form.confirmPassword.value;
+
+    // Validate passwords
+    if (password.length < 6) {
+      toast.error('Password must be at least 6 characters long!');
+      return;
+    }
+
+    if (!validatePassword(password)) {
+      toast.error('Password must contain at least one uppercase and one lowercase letter!');
+      return;
+    }
+
+    if (password !== confirmPassword) {
+      toast.error('Passwords do not match!');
+      return;
+    }
+
+    const user = { firstName, lastName, email, photoURL, password };
 
     createUser(email, password)
-    .then(result => {
-      const user = result.user;
-      setUser(user)
-      updateData({
-        displayName:firstName+''+lastName,
-        photoURL:photoURL
+      .then(result => {
+        const user = result.user;
+        setUser(user);
+        updateData({
+          displayName: firstName + " " + lastName,
+          photoURL: photoURL
+        });
+        fetch('http://localhost:5000/users', {
+          method: 'POST',
+          headers: {
+            'content-type': 'application/json'
+          },
+          body: JSON.stringify(user)
+        })
+        .then(res => res.json())
+        .then(data => console.log(data));
+        navigate('/');
       })
-      fetch('http://localhost:5000/users',{
-        method:'POST',
-        headers:{
-          'content-type':'application/json'
-        },
-        body:JSON.stringify(user)
-      })
-      .then(res=>res.json)
-      .then(data => console.log(data))
-      console.log(user);
-      navigate('/')
-    })
-    .catch(error => console.log(error))
-
-
+      .catch(error => {
+        toast.error(error.message); // Show error message with React Toastify
+      });
   };
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-50 dark:bg-gray-900 relative">
+      <ToastContainer/>
       <div className="w-full max-w-7xl mx-auto flex flex-col md:flex-row items-center">
         {/* Left Image Section */}
         <div className="w-full h-screen md:w-1/3 hidden md:block">
@@ -59,8 +83,7 @@ const Register = () => {
         <div className="w-full h-auto md:h-screen md:w-2/3 bg-white dark:bg-gray-800 px-8 rounded-lg shadow-lg flex flex-col justify-center">
           {/* Form Section */}
           <div className="mt-16">
-            {" "}
-            {/* Added margin to offset the fixed header */}
+            {" "} {/* Added margin to offset the fixed header */}
             <h2 className="text-3xl font-semibold text-gray-800 dark:text-gray-100 mb-4">
               Register
             </h2>
@@ -74,12 +97,14 @@ const Register = () => {
                   type="text"
                   name="firstName"
                   placeholder="First Name"
+                  required
                   className="input input-bordered w-full dark:bg-gray-700 dark:text-gray-200"
                 />
                 <input
                   type="text"
                   name="lastName"
                   placeholder="Last Name"
+                  required
                   className="input input-bordered w-full dark:bg-gray-700 dark:text-gray-200"
                 />
               </div>
@@ -89,6 +114,7 @@ const Register = () => {
                 type="email"
                 name="email"
                 placeholder="Email"
+                required
                 className="input input-bordered w-full mb-6 dark:bg-gray-700 dark:text-gray-200"
               />
 
@@ -96,6 +122,7 @@ const Register = () => {
               <input
                 type="text"
                 name="photoURL"
+                required
                 placeholder="Photo URL"
                 className="input input-bordered w-full mb-6 dark:bg-gray-700 dark:text-gray-200"
               />
@@ -104,7 +131,9 @@ const Register = () => {
               <input
                 type="password"
                 name="password"
-                placeholder="Password" autoComplete="true"
+                placeholder="Password"
+                autoComplete="true"
+                required
                 className="input input-bordered w-full mb-6 dark:bg-gray-700 dark:text-gray-200"
               />
 
@@ -112,7 +141,9 @@ const Register = () => {
               <input
                 type="password"
                 name="confirmPassword"
-                placeholder="Confirm Password" autoComplete="true"
+                placeholder="Confirm Password"
+                autoComplete="true"
+                required
                 className="input input-bordered w-full mb-6 dark:bg-gray-700 dark:text-gray-200"
               />
 
@@ -122,6 +153,7 @@ const Register = () => {
                   type="checkbox"
                   id="terms"
                   className="checkbox checkbox-primary mr-2"
+                  required
                 />
                 <label
                   htmlFor="terms"

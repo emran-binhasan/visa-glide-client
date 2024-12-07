@@ -1,9 +1,10 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { AuthContext } from "../contexts/AuthProvider";
 
 const Applications = () => {
   const { user } = useContext(AuthContext);
   const [applications, setApplications] = useState([]);
+  const [search, setSearch] = useState(""); // State to track search input
 
   useEffect(() => {
     fetch(`http://localhost:5000/applications/${user.uid}`)
@@ -13,7 +14,6 @@ const Applications = () => {
   }, []);
 
   const handleDeleteApplication = (id) => {
-    console.log('ok')
     fetch(`http://localhost:5000/application/${id}`, {
       method: "DELETE",
       headers: {
@@ -29,13 +29,37 @@ const Applications = () => {
       .catch((error) => console.error("Error deleting visa:", error));
   };
 
+  // Filter applications based on the search term
+  const filteredApplications = applications.filter((application) =>
+    application.countryName.toLowerCase().includes(search.toLowerCase())
+  );
+
   return (
     <div className="container mx-auto py-10 px-4">
       <h2 className="text-4xl font-bold text-gray-800 text-center mb-12">
         Your Applied Visas
       </h2>
+
+      {/* Search Input */}
+      <div className="flex justify-center mb-6">
+        <input
+          type="text"
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          placeholder="Search by country name"
+          className="border border-gray-300 rounded-lg px-4 py-2 w-1/2"
+        />
+        <button
+          onClick={() => setSearch(search)} // Trigger filtering when the button is clicked
+          className="ml-2 px-6 py-2 text-sm font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700 transition-colors"
+        >
+          Search
+        </button>
+      </div>
+
+      {/* Visa Applications List */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {applications.map((application) => (
+        {filteredApplications.map((application) => (
           <div
             key={application._id}
             className="flex flex-col bg-white shadow-md rounded-lg border border-gray-200"
