@@ -64,8 +64,8 @@ const Applications = () => {
 
   return (
     <div className="container mx-auto py-10 px-4">
-      <h2 className="text-4xl font-bold text-gray-800 text-center mb-12">
-        Your Applied Visas
+      <h2 className="text-4xl font-medium text-gray-800 text-center mb-12">
+        Applied Visas
       </h2>
 
       {/* Search Input */}

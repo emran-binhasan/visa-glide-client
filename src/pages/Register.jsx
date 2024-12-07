@@ -1,18 +1,20 @@
 import React, { useContext } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { toast, ToastContainer } from 'react-toastify';
+import { toast, ToastContainer } from 'react-toastify'; // Import React Toastify
 import 'react-toastify/dist/ReactToastify.css';
-import { Fade } from "react-awesome-reveal"; // Import React Awesome Reveal
 import { AuthContext } from "../contexts/AuthProvider";
 import registerCover from "../assets/auth.jpg";
 import Swal from 'sweetalert2';
+import { FaGoogle } from 'react-icons/fa'; // Import the Google icon from React Awesome Icons
+import { Slide } from 'react-awesome-reveal'; // Import the Reveal component from React Awesome Reveal
 
 const Register = () => {
   const { createUser, setUser, updateData, handleGoogleSignIn } = useContext(AuthContext);
-  const navigate = useNavigate();
+  const navigate = useNavigate(); // Use navigate for programmatic navigation
   const location = useLocation();
 
   const validatePassword = (password) => {
+    // Password must have at least one uppercase letter, one lowercase letter, and 6 or more characters
     return /^(?=.*[A-Z])(?=.*[a-z]).{6,}$/.test(password);
   };
 
@@ -26,44 +28,51 @@ const Register = () => {
     const password = form.password.value;
     const confirmPassword = form.confirmPassword.value;
 
+    // Validate passwords
     if (password !== confirmPassword) {
-      toast.error("Passwords do not match!");
+      toast.error('Passwords do not match!');
+      return;
+    }
+
+    if (password.length < 6) {
+      toast.error('Password must be at least 6 characters long!');
       return;
     }
 
     if (!validatePassword(password)) {
-      toast.error(
-        "Password must contain at least one uppercase and one lowercase letter!"
-      );
+      toast.error('Password must contain at least one uppercase and one lowercase letter!');
       return;
     }
 
     const user = { firstName, lastName, email, photoURL, password };
 
     createUser(email, password)
-      .then((result) => {
+      .then(result => {
         const user = result.user;
         setUser(user);
         updateData({
-          displayName: `${firstName} ${lastName}`,
-          photoURL: photoURL,
+          displayName: firstName + " " + lastName,
+          photoURL: photoURL
         });
-        fetch("http://localhost:5000/users", {
-          method: "POST",
+        fetch('http://localhost:5000/users', {
+          method: 'POST',
           headers: {
-            "Content-Type": "application/json",
+            'content-type': 'application/json'
           },
-          body: JSON.stringify(user),
-        }).then((res) => res.json());
+          body: JSON.stringify(user)
+        })
+        .then(res => res.json())
+        .then(data => console.log(data));
         Swal.fire({
-          title: `Welcome, ${user.displayName || ""}!`,
+          title: `Welcome ${user == null ? user.displayName : ''}`,
           text: "You have signed in successfully!",
-          icon: "success",
+          icon: "success"
         });
-        navigate(location.state || "/");
+        const path = location.state ? location.state : '/';
+        navigate(path);
       })
-      .catch((error) => {
-        toast.error(error.message);
+      .catch(error => {
+        toast.error(error.message); // Show error message with React Toastify
       });
   };
 
@@ -73,20 +82,19 @@ const Register = () => {
       <div className="w-full max-w-7xl mx-auto flex flex-col md:flex-row items-center">
         {/* Left Image Section */}
         <div className="w-full h-screen md:w-1/3 hidden md:block">
-          <Fade direction="left" triggerOnce>
-            <img
-              src={registerCover}
-              alt="Register Display"
-              className="h-full object-cover shadow-lg"
-            />
-          </Fade>
+          <img
+            src={registerCover}
+            alt="Register Display"
+            className="h-full object-cover shadow-lg"
+          />
         </div>
 
         {/* Right Form Section */}
-        <div className="w-full h-auto md:h-screen md:w-2/3 bg-white dark:bg-gray-800 px-8 py-6 md:py-12 rounded-lg shadow-lg flex flex-col justify-center">
-          <Fade direction="up" triggerOnce>
-            <div className="mt-8 md:mt-0">
-              <h2 className="text-3xl font-semibold text-gray-800 dark:text-gray-100 mb-4">
+        <div className="w-full h-auto md:h-screen md:w-2/3 bg-white dark:bg-gray-800 px-8 rounded-lg flex flex-col justify-center">
+          {/* Form Section */}
+          <Slide direction="right" cascade>
+            <div className="mt-4">
+              <h2 className="text-3xl font-semibold text-gray-800 dark:text-gray-100 mb-2">
                 Register
               </h2>
               <p className="text-gray-600 dark:text-gray-400 mb-6">
@@ -166,9 +174,7 @@ const Register = () => {
                       Terms, Privacy Policy,
                     </span>{" "}
                     and{" "}
-                    <span className="text-blue-600 dark:text-blue-400">
-                      Fees
-                    </span>
+                    <span className="text-blue-600 dark:text-blue-400">Fees</span>
                   </label>
                 </div>
 
@@ -180,17 +186,16 @@ const Register = () => {
                   Create Account
                 </button>
               </form>
-
               <div className="mt-4">
                 <button
                   onClick={handleGoogleSignIn}
                   className="btn bg-red-500 hover:bg-red-600 w-full text-white py-3 text-lg font-semibold transition-all duration-300"
                 >
-                  Sign in with Google
+                  <FaGoogle className="inline-block mr-2" /> Sign in with Google
                 </button>
               </div>
 
-              <p className="text-center text-gray-600 dark:text-gray-400 mt-6">
+              <p className="text-center text-gray-600 dark:text-gray-400 mt-4">
                 Already have an account?{" "}
                 <Link
                   to="/auth/login"
@@ -200,7 +205,7 @@ const Register = () => {
                 </Link>
               </p>
             </div>
-          </Fade>
+          </Slide>
         </div>
       </div>
     </div>
