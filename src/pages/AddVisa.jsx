@@ -35,6 +35,7 @@ const AddVisa = () => {
     const ageRestriction = form.ageRestriction.value;
     const fee = form.fee.value;
     const validity = form.validity.value;
+    const description = form.description.value;
   
     const uid = user.uid;
   

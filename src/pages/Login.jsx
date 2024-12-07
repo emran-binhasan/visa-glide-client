@@ -1,12 +1,15 @@
 import React, { useContext } from "react";
-import { Link, Navigate } from "react-router-dom";
+import { Link, Navigate, useLoaderData, useLocation, useNavigate } from "react-router-dom";
+import { toast, ToastContainer } from 'react-toastify'; // Import React Toastify
+import 'react-toastify/dist/ReactToastify.css'
 import loginCover from "../assets/auth.jpg";
 import { AuthContext } from "../contexts/AuthProvider";
 import Swal from 'sweetalert2'
 
 const Login = () => {
-  const{loginUser,setUser} = useContext(AuthContext)
-
+  const{loginUser,setUser,setLoading} = useContext(AuthContext)
+  const navigate = useNavigate();
+  const location = useLocation();
   const handleSubmit = (e) => {
     e.preventDefault();
     const form = e.target;
@@ -22,13 +25,18 @@ const Login = () => {
         text: "You have signed in succesfully!",
         icon: "success"
       });
-      <Navigate to={location.state?location.state:'/'} replace />
+      console.log(location)
+      const path = location.state?location.state:'/'
+      navigate(path)
     })
-    .catch(error => console.log(error))
+    .catch(error => {
+      toast.error(error.message); // Show error message with React Toastify
+    });
   };
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-50 dark:bg-gray-900 relative">
+      <ToastContainer/>
       <div className="w-full max-w-7xl mx-auto flex flex-col md:flex-row items-center">
         {/* Left Image Section */}
         <div className="w-full h-screen md:w-1/3 hidden md:block">

@@ -1,13 +1,14 @@
 import React, { useContext } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from 'react-toastify'; // Import React Toastify
 import 'react-toastify/dist/ReactToastify.css'
 import { AuthContext } from "../contexts/AuthProvider";
 import registerCover from "../assets/auth.jpg";
-
+import Swal from 'sweetalert2'
 const Register = () => {
-  const { createUser, setUser, updateData } = useContext(AuthContext);
+  const { createUser, setUser, updateData ,setLoading} = useContext(AuthContext);
   const navigate = useNavigate(); // Use navigate for programmatic navigation
+  const location = useLocation();
 
   const validatePassword = (password) => {
     // Password must have at least one uppercase letter, one lowercase letter, and 6 or more characters
@@ -25,6 +26,12 @@ const Register = () => {
     const confirmPassword = form.confirmPassword.value;
 
     // Validate passwords
+
+    if (password !== confirmPassword) {
+      toast.error('Passwords do not match!');
+      return;
+    }
+
     if (password.length < 6) {
       toast.error('Password must be at least 6 characters long!');
       return;
@@ -35,10 +42,6 @@ const Register = () => {
       return;
     }
 
-    if (password !== confirmPassword) {
-      toast.error('Passwords do not match!');
-      return;
-    }
 
     const user = { firstName, lastName, email, photoURL, password };
 
@@ -59,7 +62,13 @@ const Register = () => {
         })
         .then(res => res.json())
         .then(data => console.log(data));
-        navigate('/');
+        Swal.fire({
+          title: `Welcome ${user == null?user.displayName:''}`,
+          text: "You have signed in succesfully!",
+          icon: "success"
+        });
+        const path = location.state?location.state:'/'
+        navigate(path)
       })
       .catch(error => {
         toast.error(error.message); // Show error message with React Toastify

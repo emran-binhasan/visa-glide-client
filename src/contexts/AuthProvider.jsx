@@ -3,7 +3,7 @@ import { createContext, useEffect, useState } from "react";
 import { auth } from "../configs/firebase.config";
 import { useNavigate } from "react-router-dom";
 export const AuthContext = createContext();
-
+import Swal from 'sweetalert2'
 const AuthProvider = ({children}) => {
 
     const[user, setUser] = useState(null);
@@ -26,10 +26,18 @@ const AuthProvider = ({children}) => {
         }
     };
     
-    const logOutUser = () =>
+    const logOutUser = () => {
         signOut(auth)
-    .then(()=>console.log('Signed Out'))
-    .catch(error => console.log(error))
+        .then(()=> {
+            Swal.fire({
+                title: `Hey ${user.displayName?user.displayName:''}`,
+                text: "You have logged out succesfully!",
+                icon: "info"
+              });
+            navigate
+        })
+    }
+    
 
     useEffect(()=>{
         const unsubscribe = onAuthStateChanged(auth, (currentUser)=> {
