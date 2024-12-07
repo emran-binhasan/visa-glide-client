@@ -60,14 +60,14 @@ const Header = () => {
         <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gray-900 transition-all duration-300 group-hover:w-full"></span>
       </NavLink>
       <NavLink
-        to="added-visas"
+        to="/added-visas"
         className="text-gray-700 hover:text-gray-900 group relative"
       >
         Added Visas
         <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gray-900 transition-all duration-300 group-hover:w-full"></span>
       </NavLink>
       <NavLink
-        to="applications"
+        to="/applications"
         className="text-gray-700 hover:text-gray-900 group relative"
       >
         Applications
@@ -100,7 +100,7 @@ const Header = () => {
       ) : (
         <>
           <NavLink
-            to="auth/register"
+            to="/auth/register"
             className="text-gray-700 hover:text-gray-900 group relative"
           >
             Register
@@ -108,7 +108,7 @@ const Header = () => {
           </NavLink>
 
           <NavLink
-            to="auth/login"
+            to="/auth/login"
             className="text-gray-700 hover:text-gray-900 group relative"
           >
             Login

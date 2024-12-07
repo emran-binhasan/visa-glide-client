@@ -1,5 +1,6 @@
 import React, { useContext, useState, useEffect } from "react";
 import { AuthContext } from "../contexts/AuthProvider";
+import Swal from 'sweetalert2';
 
 const Applications = () => {
   const { user } = useContext(AuthContext);
@@ -14,20 +15,47 @@ const Applications = () => {
   }, []);
 
   const handleDeleteApplication = (id) => {
-    fetch(`http://localhost:5000/application/${id}`, {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((res) => res.json())
-      .then(() => {
-        // Update the visas state by removing the deleted visa
-        const remainingApplications = applications.filter((application) => application._id !== id);
-        setApplications(remainingApplications)
-      })
-      .catch((error) => console.error("Error deleting visa:", error));
+    Swal.fire({
+      title: "Are you sure?",
+      text: "Your application will be cancelled",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      cancelButtonText: "No",
+      confirmButtonText: "Yes, cancel it!"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        fetch(`http://localhost:5000/application/${id}`, {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        })
+          .then((res) => res.json())
+          .then(() => {
+            // Update the visas state by removing the deleted visa
+            const remainingApplications = applications.filter((application) => application._id !== id);
+            setApplications(remainingApplications)
+            Swal.fire({
+              title: "Cancelled!",
+              text: "Your visa application has been cancelled.",
+              icon: "success"
+            });
+          })
+          .catch((error) => {
+            Swal.fire({
+              title: "Couldn't cancel application!",
+              text: `${error}`,
+              icon: "error"
+            });
+          });
+      }
+    });
+
   };
+
+
 
   // Filter applications based on the search term
   const filteredApplications = applications.filter((application) =>

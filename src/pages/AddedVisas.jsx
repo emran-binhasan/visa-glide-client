@@ -1,6 +1,8 @@
 import React, { useContext, useState } from "react";
 import { useLoaderData } from "react-router-dom";
 import { AuthContext } from "../contexts/AuthProvider";
+import Swal from 'sweetalert2';
+
 
 const AddedVisas = () => {
   const allVisa = useLoaderData();
@@ -17,6 +19,16 @@ const AddedVisas = () => {
 
   // Handle the delete functionality
   const handleDeleteVisa = (id) => {
+    Swal.fire({
+  title: "Are you sure?",
+  text: "You won't be able to revert this!",
+  icon: "warning",
+  showCancelButton: true,
+  confirmButtonColor: "#3085d6",
+  cancelButtonColor: "#d33",
+  confirmButtonText: "Yes, delete it!"
+}).then((result) => {
+  if (result.isConfirmed) {
     fetch(`http://localhost:5000/visa/${id}`, {
       method: "DELETE",
       headers: {
@@ -25,12 +37,26 @@ const AddedVisas = () => {
     })
       .then((res) => res.json())
       .then(() => {
+        Swal.fire({
+          title: "Deleted!",
+          text: "Your file has been deleted.",
+          icon: "success"
+        });
         const remainingVisas = visas.filter((visa) => visa._id !== id);
         setVisas(remainingVisas);
       })
-      .catch((error) => console.error("Error deleting visa:", error));
-  };
+      .catch((error) => {
+        Swal.fire({
+          title: "Couldn't delete!",
+          text: `${error}`,
+          icon: "alert"
+        });
+      });
+  }
+});
 
+  };
+ 
   const handleUpdateVisa = (e) => {
     e.preventDefault();
     const form = e.target;
@@ -62,23 +88,49 @@ const AddedVisas = () => {
       validity: form.validity.value,
       applicationMethods,
     };
+
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to undo this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, update!"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        fetch(`http://localhost:5000/visa/${currentVisa._id}`, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(updatedVisa),
+        })
+          .then((res) => res.json())
+          .then(() => {
+            const updatedVisas = visas.map((visa) =>
+              visa._id === currentVisa._id ? { ...visa, ...updatedVisa } : visa
+            );
+            setVisas(updatedVisas);
+            setIsModalOpen(false);
+            Swal.fire({
+              title: "Updated!",
+              text: "Your file has been updated.",
+              icon: "success"
+            });
+          })
+          .catch((error) => {
+            Swal.fire({
+              title: "Couldn't update!",
+              text: `${error}`,
+              icon: "alert"
+            });
+          });
+       
+      }
+    });
+
   
-    fetch(`http://localhost:5000/visa/${currentVisa._id}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(updatedVisa),
-    })
-      .then((res) => res.json())
-      .then(() => {
-        const updatedVisas = visas.map((visa) =>
-          visa._id === currentVisa._id ? { ...visa, ...updatedVisa } : visa
-        );
-        setVisas(updatedVisas);
-        setIsModalOpen(false);
-      })
-      .catch((error) => console.error("Error updating visa:", error));
   };
   
   return (
