@@ -43,25 +43,25 @@ const Header = () => {
 
   const navLinks = (
     <>
-      <NavLink to="/" className="text-gray-700 hover:text-gray-900 group relative">
+      <NavLink to="/" className="text-gray-700 dark:text-gray-50 hover:text-gray-900 group relative">
         Home
-        <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gray-900 transition-all duration-300 group-hover:w-full"></span>
+        <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gray-900 dark:bg-pink-500 transition-all duration-300 group-hover:w-full"></span>
       </NavLink>
-      <NavLink to="/all-visa" className="text-gray-700 hover:text-gray-900 group relative">
+      <NavLink to="/all-visa" className="text-gray-700 dark:text-gray-50 hover:text-gray-900 group relative">
         All Visa
-        <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gray-900 transition-all duration-300 group-hover:w-full"></span>
+        <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gray-900 dark:bg-pink-500 transition-all duration-300 group-hover:w-full"></span>
       </NavLink>
-      <NavLink to="/add-visa" className="text-gray-700 hover:text-gray-900 group relative">
+      <NavLink to="/add-visa" className="text-gray-700 dark:text-gray-50 hover:text-gray-900 group relative">
         Add Visa
-        <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gray-900 transition-all duration-300 group-hover:w-full"></span>
+        <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gray-900 dark:bg-pink-500 transition-all duration-300 group-hover:w-full"></span>
       </NavLink>
-      <NavLink to="/added-visas" className="text-gray-700 hover:text-gray-900 group relative">
+      <NavLink to="/added-visas" className="text-gray-700 dark:text-gray-50 hover:text-gray-900 group relative">
         Added Visas
-        <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gray-900 transition-all duration-300 group-hover:w-full"></span>
+        <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gray-900 dark:bg-pink-500 transition-all duration-300 group-hover:w-full"></span>
       </NavLink>
-      <NavLink to="/applications" className="text-gray-700 hover:text-gray-900 group relative">
+      <NavLink to="/applications" className="text-gray-700 dark:text-gray-50 hover:text-gray-900 group relative">
         Applications
-        <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gray-900 transition-all duration-300 group-hover:w-full"></span>
+        <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gray-900 dark:bg-pink-500 transition-all duration-300 group-hover:w-full"></span>
       </NavLink>
       {user ? (
         <>
@@ -93,20 +93,20 @@ const Header = () => {
               logOutUser();
               setIsMenuOpen(false); // Close menu after logout
             }}
-            className="block md:hidden text-gray-700 hover:text-gray-900"
+            className="block md:hidden text-gray-700  hover:text-gray-900"
           >
             Logout
           </button>
         </>
       ) : (
         <>
-          <NavLink to="/auth/register" className="text-gray-700 hover:text-gray-900 group relative">
+          <NavLink to="/auth/register" className="text-gray-700 dark:text-gray-50 hover:text-gray-900 group relative">
             Register
-            <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gray-900 transition-all duration-300 group-hover:w-full"></span>
+            <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gray-900 dark:bg-pink-500 transition-all duration-300 group-hover:w-full"></span>
           </NavLink>
-          <NavLink to="/auth/login" className="text-gray-700 hover:text-gray-900 group relative">
+          <NavLink to="/auth/login" className="text-gray-700 dark:text-gray-50 hover:text-gray-900 group relative">
             Login
-            <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gray-900 transition-all duration-300 group-hover:w-full"></span>
+            <span className="absolute bottom-0 left-0 w-0 h-0.5 dark:bg-pink-500 bg-gray-900 transition-all duration-300 group-hover:w-full"></span>
           </NavLink>
         </>
       )}

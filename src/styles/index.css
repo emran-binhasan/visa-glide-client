@@ -11,10 +11,11 @@ body{
 
 .active {
   font-weight: 500;
-  color: rgb(169, 156, 156);
+  color: rgb(44, 39, 39);
+  border-top: 2px solid blue;
 }
 
 html.dark {
   background-color: #1f2937; /* Dark background */
-  color: #f3f4f6; /* Light text */
+  color: #676f80; /* Light text */
 }

@@ -19,8 +19,7 @@ const LatestVisas = () => {
     };
     fetchLatestVisas();
   }, []);
-  // background-color: #4158D0;
-  // background-image: linear-gradient(43deg, #4158D0 0%, #C850C0 46%, #FFCC70 100%);
+
   
   return (
     <section className="latest-visas-section py-8 bg-gradient-to-br from-[#d4b5e5] to-[#bef7ec] dark:bg-gradient-to-br dark:from-gray-900 dark:via-gray-800 dark:to-gray-700">
