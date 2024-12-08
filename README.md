@@ -2,7 +2,7 @@
 
 Visa Glide is a dynamic web application designed to simplify the visa application process. It offers a user-friendly interface to check visa requirements, apply for visas online, and track applications.
 
-**Live Site URL**: [Visa Glide Live](https://visa-glide.example.com)
+**Live Site URL**: [Visa Glide Live](https://visa-glide.netlify.app)
 
 ### Features
 - **User Authentication**: Secure login and registration with Google integration.
