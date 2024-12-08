@@ -54,7 +54,7 @@ const Register = () => {
           displayName: firstName + " " + lastName,
           photoURL: photoURL
         });
-        fetch('http://localhost:5000/users', {
+        fetch('https://visa-glide-server.vercel.app/users', {
           method: 'POST',
           headers: {
             'content-type': 'application/json'

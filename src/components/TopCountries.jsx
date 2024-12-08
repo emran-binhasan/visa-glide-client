@@ -9,12 +9,12 @@ const TopCountries = () => {
     },
     {
       name: "Australia",
-      image: "https://i.ibb.co.com/42p26Nm/istockphoto-503874284-612x612.jpg",
+      image: "https://i.ibb.co.com/N3cf9Dp/australia.png",
       description: "Pristine beaches, unique wildlife, and iconic landmarks like the Great Barrier Reef and Sydney Opera House."
     },
     {
       name: "Germany",
-      image: "https://i.ibb.co.com/N3cf9Dp/australia.png",
+      image: "https://i.ibb.co.com/42p26Nm/istockphoto-503874284-612x612.jpg",
       description: "Rich history, vibrant cities like Berlin and Munich, scenic countryside with forests and vineyards."
     },
     {
@@ -25,21 +25,25 @@ const TopCountries = () => {
   ];
 
   return (
-    <section className="top-countries-section py-8 bg-gradient-to-br from-blue-100 via-green-100 to-purple-100">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <h2 className="text-3xl font-bold text-gray-800 mb-6">Top Countries to Visit</h2>
-        <p className="text-gray-600 mb-8">Discover the best travel destinations with stunning landscapes, rich history, and unique experiences.</p>
+    <section className="top-countries-section py-8 bg-gradient-to-r from-teal-100 to-pink-200 dark:bg-gradient-to-br dark:from-gray-900 dark:via-gray-800 dark:to-gray-700 pt-10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-4">
+      <h2 className="text-4xl text-gray-800 dark:text-gray-400">Top Countries to Visit</h2>
+        <p className="text-lg text-gray-600 max-w-3xl dark:text-gray-400 mx-auto">
+        Discover the best travel destinations with stunning landscapes, rich history, and unique experiences.
+        </p>
+        <h2 className="text-4xl font-extrasemisemibold text-gray-800 dark:text-gray-400"></h2>
+        <p className="text-gray-600 dark:text-gray-300 mb-8">.</p>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {topCountries.map((country) => (
-            <div key={country.name} className="country-card bg-white rounded-lg shadow-lg overflow-hidden transform transition-all duration-300 hover:scale-105">
+            <div key={country.name} className="country-card bg-white dark:bg-gray-800 dark:border dark:border-gray-600 rounded-lg shadow-lg overflow-hidden transform transition-all duration-300 hover:scale-105">
               <img
                 src={country.image}
                 alt={country.name}
                 className="w-full h-56 object-cover rounded-t-lg"
               />
               <div className="p-4">
-                <h3 className="text-xl font-semibold text-gray-800 mb-1">{country.name}</h3>
-                <p className="text-gray-600 text-sm">{country.description}</p>
+                <h3 className="text-xl font-semibold text-gray-800 dark:text-gray-100 mb-1">{country.name}</h3>
+                <p className="text-gray-600 dark:text-gray-300 text-sm">{country.description}</p>
               </div>
             </div>
           ))}

@@ -30,8 +30,6 @@ const AuthProvider = ({ children }) => {
       .then((result) => {
         const user = result.user;
         setUser(user)
-        const path = location.state?location.state:'/';
-        navigate(path)
       })
       .catch((error) => {
         toast.error(error.message); 
@@ -53,7 +51,7 @@ const AuthProvider = ({ children }) => {
         text: "You have logged out succesfully!",
         icon: "info",
       });
-      navigate;
+      navigate('/');
     });
   };
 

@@ -26,7 +26,7 @@ export const Router = createBrowserRouter([
       {
         path: "all-visa",
         element: <AllVisa />,
-        loader: () => fetch("http://localhost:5000/visas")
+        loader: () => fetch("https://visa-glide-server.vercel.app/visas")
       },
       {
         path: "add-visa",
@@ -35,17 +35,17 @@ export const Router = createBrowserRouter([
       {
         path: `added-visas/`,
         element: <PrivateRoute><AddedVisas /></PrivateRoute>,
-        loader: () => fetch("http://localhost:5000/visas")
+        loader: () => fetch("https://visa-glide-server.vercel.app/visas")
       },
       {
         path: "applications",
         element: <PrivateRoute><Applications /></PrivateRoute>,
-        loader: () => fetch("http://localhost:5000/visas")
+        loader: () => fetch("https://visa-glide-server.vercel.app/visas")
       },
       {
         path: "visa/:id",
         element: <PrivateRoute><VisaDetails /></PrivateRoute>,
-        loader: ({ params }) => fetch(`http://localhost:5000/visa/${params.id}`)
+        loader: ({ params }) => fetch(`https://visa-glide-server.vercel.app/visa/${params.id}`)
       }
     ]
   },

@@ -25,7 +25,7 @@ const AllVisa = () => {
       <h1 className="text-center text-xl md:text-3xl font-medium">
         All Visa List
       </h1>
-      <p className="text-lg text-gray-600 mt-2 text-center w-3/4 mx-auto">
+      <p className="text-lg text-gray-600 dark:text-gray-400 mt-2 text-center w-3/4 mx-auto">
         Explore the different types of visas available for travel, work, study,
         and more. Whether you're planning a short trip, long-term stay, or
         seeking opportunities abroad, you can find all the visa information you

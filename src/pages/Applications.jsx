@@ -8,7 +8,7 @@ const Applications = () => {
   const [search, setSearch] = useState(""); // State to track search input
 
   useEffect(() => {
-    fetch(`http://localhost:5000/applications/${user.uid}`)
+    fetch(`https://visa-glide-server.vercel.app/applications/${user.uid}`)
       .then((response) => response.json())
       .then((data) => setApplications(data))
       .catch((error) => console.error("Error:", error));
@@ -26,7 +26,7 @@ const Applications = () => {
       confirmButtonText: "Yes, cancel it!"
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:5000/application/${id}`, {
+        fetch(`https://visa-glide-server.vercel.app/application/${id}`, {
           method: "DELETE",
           headers: {
             "Content-Type": "application/json",
@@ -34,9 +34,8 @@ const Applications = () => {
         })
           .then((res) => res.json())
           .then(() => {
-            // Update the visas state by removing the deleted visa
             const remainingApplications = applications.filter((application) => application._id !== id);
-            setApplications(remainingApplications)
+            setApplications(remainingApplications);
             Swal.fire({
               title: "Cancelled!",
               text: "Your visa application has been cancelled.",
@@ -52,10 +51,7 @@ const Applications = () => {
           });
       }
     });
-
   };
-
-
 
   // Filter applications based on the search term
   const filteredApplications = applications.filter((application) =>
@@ -63,10 +59,8 @@ const Applications = () => {
   );
 
   return (
-    <div className="container mx-auto py-10 px-4">
-      <h2 className="text-4xl font-medium text-gray-800 text-center mb-12">
-        Applied Visas
-      </h2>
+    <div className="container mx-auto py-10 px-4 dark:bg-gray-800 dark:text-gray-400">
+      <h2 className="text-4xl font-medium text-gray-800 dark:text-gray-400 text-center mb-12">Applied Visas</h2>
 
       {/* Search Input */}
       <div className="flex justify-center mb-6">
@@ -75,7 +69,7 @@ const Applications = () => {
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           placeholder="Search by country name"
-          className="border border-gray-300 rounded-lg px-4 py-2 w-1/2"
+          className="border border-gray-300 rounded-lg px-4 py-2 w-1/2 dark:bg-gray-900 dark:text-gray-300"
         />
         <button
           onClick={() => setSearch(search)} // Trigger filtering when the button is clicked
@@ -86,76 +80,75 @@ const Applications = () => {
       </div>
 
       {/* Visa Applications List */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {filteredApplications.map((application) => (
-          <div
-            key={application._id}
-            className="flex flex-col bg-white shadow-md rounded-lg border border-gray-200"
-          >
-            {/* Flag Section */}
-            <div className="h-48 bg-gray-50 flex items-center justify-center border-b">
-              <img
-                src={application.countryImage}
-                alt={`Flag of ${application.countryName}`}
-                className="max-h-full max-w-full object-contain"
-              />
-            </div>
+      {filteredApplications.length === 0 ? (
+        <p className="text-center text-gray-600 dark:text-gray-300">No visa applications found.</p>
+      ) : (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {filteredApplications.map((application) => (
+            <div
+              key={application._id}
+              className="flex flex-col bg-white dark:bg-gray-700 shadow-md rounded-lg border border-gray-200"
+            >
+              {/* Flag Section */}
+              <div className="h-48 bg-gray-50 dark:bg-gray-900 flex items-center justify-center border-b">
+                <img
+                  src={application.countryImage}
+                  alt={`Flag of ${application.countryName}`}
+                  className="max-h-full max-w-full object-contain"
+                />
+              </div>
 
-            {/* Content Section */}
-            <div className="flex-grow p-6">
-              <h3 className="text-2xl font-semibold text-gray-800 text-center mb-4">
-                {application.countryName}
-              </h3>
-              <div className="grid grid-cols-2 gap-y-3 text-sm text-gray-700">
-                <p>
-                  <span className="font-medium">Visa Type:</span>{" "}
-                  {application.visaType}
-                </p>
-                <p>
-                  <span className="font-medium">Processing Time:</span>{" "}
-                  {application.processingTime} Days
-                </p>
-                <p>
-                  <span className="font-medium">Fee:</span> ${application.fee}
-                </p>
-                <p>
-                  <span className="font-medium">Validity:</span>{" "}
-                  {application.validity} Year
-                </p>
-                <p>
-                  <span className="font-medium">Applied Date:</span>{" "}
-                  {application.applyDate}
-                </p>
-                <p>
-                  <span className="font-medium">Applicant Name:</span>{" "}
-                  {`${application.firstName} ${application.lastName}`}
-                </p>
-                <p className="col-span-2">
-                  <span className="font-medium">Email:</span> {application.email}
-                </p>
-                <p className="col-span-2">
-                  <span className="font-medium">Application Methods:</span>{" "}
-                  {application.applicationMethods.map((method, index) => (
-                    <span key={index} className="block">
-                      {method}
-                    </span>
-                  ))}
-                </p>
+              {/* Content Section */}
+              <div className="flex-grow p-6">
+                <h3 className="text-2xl font-semibold text-gray-800 text-center mb-4 dark:text-gray-200">
+                  {application.countryName}
+                </h3>
+                <div className="grid grid-cols-2 gap-y-3 text-sm text-gray-700 dark:text-gray-300">
+                  <p>
+                    <span className="font-medium">Visa Type:</span> {application.visaType}
+                  </p>
+                  <p>
+                    <span className="font-medium">Processing Time:</span> {application.processingTime} Days
+                  </p>
+                  <p>
+                    <span className="font-medium">Fee:</span> ${application.fee}
+                  </p>
+                  <p>
+                    <span className="font-medium">Validity:</span> {application.validity} Year
+                  </p>
+                  <p>
+                    <span className="font-medium">Applied Date:</span> {application.applyDate}
+                  </p>
+                  <p>
+                    <span className="font-medium">Applicant Name:</span> {`${application.firstName} ${application.lastName}`}
+                  </p>
+                  <p className="col-span-2">
+                    <span className="font-medium">Email:</span> {application.email}
+                  </p>
+                  <p className="col-span-2">
+                    <span className="font-medium">Application Methods:</span>
+                    {application.applicationMethods.map((method, index) => (
+                      <span key={index} className="block">
+                        {method}
+                      </span>
+                    ))}
+                  </p>
+                </div>
+              </div>
+
+              {/* Button Section */}
+              <div className="p-4 flex justify-center border-t">
+                <button
+                  onClick={() => handleDeleteApplication(application._id)}
+                  className="px-6 py-2 text-sm font-medium text-white bg-red-600 rounded-md hover:bg-red-700 transition-colors"
+                >
+                  Cancel Application
+                </button>
               </div>
             </div>
-
-            {/* Button Section */}
-            <div className="p-4 flex justify-center border-t">
-              <button
-                onClick={() => handleDeleteApplication(application._id)}
-                className="px-6 py-2 text-sm font-medium text-white bg-red-600 rounded-md hover:bg-red-700 transition-colors"
-              >
-                Cancel Application
-              </button>
-            </div>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 };

@@ -1,12 +1,16 @@
 import React, { useContext } from 'react';
 import { AuthContext } from '../contexts/AuthProvider';
-import { useNavigate } from 'react-router-dom';
+import { Navigate, useLocation} from 'react-router-dom';
+import Loading from '../pages/Loading';
 
 const PublicRoute = ({children}) => {
-    const navigate = useNavigate()
-    const {user} = useContext(AuthContext);
+    const location = useLocation();
+    const { user, loading} = useContext(AuthContext);
+    if(loading){
+        return <Loading/>
+    }
     if(user){
-        navigate('/')
+        return <Navigate to={location.state?location.state:'/'} replace />;
     }
     return children
 };

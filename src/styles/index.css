@@ -10,8 +10,8 @@ body{
 }
 
 .active {
-  font-weight: semibold;
-  color: gray;
+  font-weight: 500;
+  color: rgb(169, 156, 156);
 }
 
 html.dark {

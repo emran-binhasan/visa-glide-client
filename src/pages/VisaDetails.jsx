@@ -44,7 +44,7 @@ const VisaDetails = () => {
       uid,
     };
     console.log(application);
-    fetch(`http://localhost:5000/applications/`, {
+    fetch(`https://visa-glide-server.vercel.app/applications/`, {
       method: "POST",
       headers: {
         "content-type": "application/json",

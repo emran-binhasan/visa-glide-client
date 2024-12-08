@@ -28,9 +28,7 @@ const Login = () => {
           title: `Welcome ${user == null ? user.displayName : ""}`,
           text: "You have signed in successfully!",
           icon: "success",
-        });
-        const path = location.state ? location.state : "/";
-        navigate(path);
+        }); 
       })
       .catch((error) => {
         toast.error(error.message); // Show error message with React Toastify
@@ -52,7 +50,7 @@ const Login = () => {
                 Login
               </h2>
               <p className="text-gray-600 dark:text-gray-400 mb-6">
-                Welcome back! Please login to access your account.
+               Please login to access your account.
               </p>
               <form onSubmit={handleLogin}>
                 {/* Email */}

@@ -53,7 +53,7 @@ const AddVisa = () => {
       uid,
     };
 
-    fetch("http://localhost:5000/visas", {
+    fetch("https://visa-glide-server.vercel.app/visas", {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -63,7 +63,7 @@ const AddVisa = () => {
       .then((res) => res.json())
       .then(() => {
         Swal.fire({
-          title: `Congratulations !}`,
+          title: `Congratulations`,
           text: "Visa Added Successfully",
           icon: "success"
         });
