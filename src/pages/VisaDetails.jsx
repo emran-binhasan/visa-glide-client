@@ -57,41 +57,41 @@ const VisaDetails = () => {
   };
 
   return (
-    <div className="bg-white shadow-lg rounded-lg p-8 border border-gray-200 max-w-3xl mx-auto">
+    <div className="bg-white dark:bg-gray-800 shadow-lg rounded-lg p-8 border border-gray-200 dark:border-gray-700 max-w-3xl mx-auto">
       <div className="flex items-center gap-6 mb-6">
         <img
           src={countryImage}
           alt={`Flag of ${countryName}`}
           className="w-24 h-24 object-cover rounded-md border"
         />
-        <h1 className="text-3xl font-bold text-gray-800">
+        <h1 className="text-3xl font-medium text-gray-800 dark:text-white">
           {countryName} Visa Details
         </h1>
       </div>
       <div className="space-y-4">
-        <p className="text-lg text-gray-600">
+        <p className="text-lg text-gray-600 dark:text-gray-300">
           <span className="font-semibold">Visa Type:</span> {visaType}
         </p>
-        <p className="text-lg text-gray-600">
+        <p className="text-lg text-gray-600 dark:text-gray-300">
           <span className="font-semibold">Processing Time:</span>{" "}
           {processingTime} Days
         </p>
-        <p className="text-lg text-gray-600">
+        <p className="text-lg text-gray-600 dark:text-gray-300">
           <span className="font-semibold">Fee:</span> ${fee}
         </p>
-        <p className="text-lg text-gray-600">
+        <p className="text-lg text-gray-600 dark:text-gray-300">
           <span className="font-semibold">Validity:</span> {validity} Year
         </p>
-        <p className="text-lg text-gray-600">
+        <p className="text-lg text-gray-600 dark:text-gray-300">
           <span className="font-semibold">Description:</span> {description}
         </p>
       </div>
       {requiredDocuments && requiredDocuments.length > 0 && (
         <div className="mt-6">
-          <h2 className="text-xl font-medium text-gray-800 mb-3">
+          <h2 className="text-xl font-medium text-gray-800 dark:text-white mb-3">
             Required Documents
           </h2>
-          <ul className="list-disc list-inside text-gray-600 space-y-2">
+          <ul className="list-disc list-inside text-gray-600 dark:text-gray-300 space-y-2">
             {requiredDocuments.map((requirement, index) => (
               <li key={index}>{requirement}</li>
             ))}
@@ -100,10 +100,10 @@ const VisaDetails = () => {
       )}
       {applicationMethods && applicationMethods.length > 0 && (
         <div className="mt-6">
-          <h2 className="text-xl font-medium text-gray-800 mb-3">
+          <h2 className="text-xl font-medium text-gray-800 dark:text-white mb-3">
             Application Methods
           </h2>
-          <ul className="list-disc list-inside text-gray-600 space-y-2">
+          <ul className="list-disc list-inside text-gray-600 dark:text-gray-300 space-y-2">
             {applicationMethods.map((each, index) => (
               <li key={index}>{each}</li>
             ))}
@@ -123,42 +123,44 @@ const VisaDetails = () => {
       {/* Modal */}
       {isModalOpen && (
         <div className="fixed inset-0 bg-gray-500 bg-opacity-75 flex justify-center items-center z-50">
-          <div className="bg-white p-8 rounded-lg shadow-lg max-w-sm w-full z-60">
-            <h2 className="text-2xl font-semibold mb-4">Visa Application</h2>
+          <div className="bg-white dark:bg-gray-900 p-8 rounded-lg shadow-lg max-w-sm w-full z-60">
+            <h2 className="text-2xl font-semibold mb-4 text-white dark:text-white">
+              Visa Application
+            </h2>
             <form onSubmit={handleAddVisa} className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700">
+                <label className="block text-sm font-medium text-gray-700 dark:text-white">
                   Email
                 </label>
                 <input
                   type="email"
                   name="email"
                   defaultValue={user.email}
-                  className="input input-bordered w-full"
+                  className="input input-bordered w-full dark:bg-gray-800"
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700">
+                <label className="block text-sm font-medium text-gray-700 dark:text-white">
                   First Name
                 </label>
                 <input
                   type="text"
                   name="firstName"
-                  className="input input-bordered w-full"
+                  className="input input-bordered w-full dark:bg-gray-800"
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700">
+                <label className="block text-sm font-medium text-gray-700 dark:text-white">
                   Last Name
                 </label>
                 <input
                   type="text"
                   name="lastName"
-                  className="input input-bordered w-full"
+                  className="input input-bordered w-full dark:bg-gray-800"
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700">
+                <label className="block text-sm font-medium text-gray-700 dark:text-white">
                   Applied Date
                 </label>
                 <input
@@ -166,11 +168,11 @@ const VisaDetails = () => {
                   name="date"
                   readOnly
                   defaultValue={date}
-                  className="input input-bordered w-full"
+                  className="input input-bordered w-full dark:bg-gray-800"
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700">
+                <label className="block text-sm font-medium text-gray-700 dark:text-white">
                   Fee
                 </label>
                 <input
@@ -178,7 +180,7 @@ const VisaDetails = () => {
                   name="fee"
                   defaultValue={fee}
                   readOnly
-                  className="input input-bordered w-full"
+                  className="input input-bordered w-full dark:bg-gray-800"
                 />
               </div>
               <div className="flex gap-4 mt-4">
