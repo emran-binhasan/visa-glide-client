@@ -91,8 +91,7 @@ const AddedVisas = () => {
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, update!"
+      cancelButtonColor: "#d33"
     }).then((result) => {
       if (result.isConfirmed) {
         fetch(`https://visa-glide-server.vercel.app/visa/${currentVisa._id}`, {

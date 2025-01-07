@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const VisaCard = ({ visa }) => {
-  const { countryName, countryImage, fee, visaType, processingTime, _id } = visa;
+  const { countryName, countryImage, fee, visaType, processingTime, _id,description } = visa;
 
   const handleVisaDetails =async id =>{
     console.log(id);
@@ -15,29 +15,33 @@ const VisaCard = ({ visa }) => {
   }
 
   return (
-    <div className="bg-white dark:bg-gray-800 shadow-lg rounded-lg p-6 border border-gray-200 transition-transform transform hover:scale-105">
-      <img
-        src={countryImage}
-        alt={`Flag of ${countryName}`}
-        className="w-full h-40 object-cover rounded-t-md mb-4"
-      />
-      <div className="px-2">
-        <h2 className="text-2xl font-bold text-gray-800 dark:text-gray-400 mb-2">{countryName}</h2>
-        <p className="text-md text-gray-600 dark:text-gray-400 mb-1">
-          <span className="font-medium">Visa Type:</span> {visaType}
-        </p>
-        <p className="text-md text-gray-600 dark:text-gray-400 mb-1">
-          <span className="font-medium">Processing Time:</span> {processingTime}{" "}
-          Days
-        </p>
-        <p className="text-md text-gray-600 dark:text-gray-400 mb-4">
-          <span className="font-medium">Fee:</span> ${fee}
-        </p>
-        <Link to={`/visa/${_id}`} className="w-full bg-blue-600 text-white py-2 px-4 rounded-md text-center font-semibold hover:bg-blue-700 transition-colors">
-          View Details
-        </Link>
-      </div>
-    </div>
+    <div className="visa-card border relative rounded-lg shadow-md hover:shadow-lg transition-shadow bg-white dark:bg-gray-900 flex flex-col">
+           <img
+             src={countryImage}
+             alt={`${countryName} flag`}
+             className="w-full h-40 object-cover rounded-t-lg"
+           />
+           <div className="p-3 flex-grow flex flex-col">
+             <h3 className="text-xl font-semibold text-gray-800 dark:text-white mb-2">
+               {countryName}
+             </h3>
+             <p className="text-gray-600 dark:text-gray-400 text-sm mb-1 absolute py-1 px-2 bg-white shadow-lg rounded-lg top-2 left-2">
+               {visaType}
+             </p>
+             <p className="text-gray-600 dark:text-gray-400 text-sm mb-1 absolute py-1 px-2 bg-white shadow-lg rounded-lg top-[122px] right-2">
+               ${fee}
+             </p>
+             <p className="text-gray-600 dark:text-gray-400 text-sm mb-1">
+              {description}
+             </p>
+             <button
+               className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition-colors mb-1 dark:bg-blue-800 dark:hover:bg-blue-900 mt-auto"
+               onClick={() => navigate(`/visa/${_id}`)}
+             >
+               See Details
+             </button>
+           </div>
+         </div>
   );
 };
 

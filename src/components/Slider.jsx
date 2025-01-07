@@ -52,7 +52,7 @@ const Slider = () => {
         delay: 8000,
         disableOnInteraction: false,
       }}
-      className="mySwiper max-w-7xl lg:max-w-full mx-auto border rounded border-gray-300 shadow-lg"
+      className="mySwiper max-w-7xl lg:max-w-full md:h-[72vh] mx-auto border rounded border-gray-300 shadow-lg"
     >
       {slides.map((slide, index) => (
         <SwiperSlide key={index} className="relative">
@@ -63,7 +63,7 @@ const Slider = () => {
               alt={slide.title}
             />
             <div className="absolute inset-0 flex flex-col items-center justify-center bg-black bg-opacity-50 px-6 sm:px-8 md:px-12 text-white text-center">
-              <h2 className="text-xl sm:text-2xl md:text-4xl lg:text-5xl font-bold mb-4">
+              <h2 className="text-xl sm:text-2xl md:text-4xl lg:text-5xl font-semibold mb-4 mr-auto ml-4">
                 <Typewriter
                   words={[slide.title]}
                   loop={false}

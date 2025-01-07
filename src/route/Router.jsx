@@ -13,6 +13,8 @@ import VisaDetails from "../pages/VisaDetails";
 import PrivateRoute from "./PrivateRoute";
 import PublicRoute from "./PublicRoute";
 import { Navigate } from "react-router-dom"; // Import Navigate
+import About from "../pages/About";
+import Contact from "../pages/Contact";
 
 export const Router = createBrowserRouter([
   {
@@ -43,8 +45,16 @@ export const Router = createBrowserRouter([
         loader: () => fetch("https://visa-glide-server.vercel.app/visas")
       },
       {
+        path: "about",
+        element: <About />,
+      },
+      {
+        path: "contact",
+        element: <Contact />,
+      },
+      {
         path: "visa/:id",
-        element: <PrivateRoute><VisaDetails /></PrivateRoute>,
+        element: <VisaDetails />,
         loader: ({ params }) => fetch(`https://visa-glide-server.vercel.app/visa/${params.id}`)
       }
     ]

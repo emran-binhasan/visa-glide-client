@@ -51,7 +51,18 @@ const Header = () => {
         All Visa
         <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gray-900 dark:bg-pink-500 transition-all duration-300 group-hover:w-full"></span>
       </NavLink>
-      <NavLink to="/add-visa" className="text-gray-700 dark:text-gray-50 hover:text-gray-900 group relative">
+      <NavLink to="/about" className="text-gray-700 dark:text-gray-50 hover:text-gray-900 group relative">
+        About
+        <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gray-900 dark:bg-pink-500 transition-all duration-300 group-hover:w-full"></span>
+      </NavLink>
+      <NavLink to="/contact" className="text-gray-700 dark:text-gray-50 hover:text-gray-900 group relative">
+        Contact
+        <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gray-900 dark:bg-pink-500 transition-all duration-300 group-hover:w-full"></span>
+      </NavLink>
+      
+      {user ? (
+        <>
+        <NavLink to="/add-visa" className="text-gray-700 dark:text-gray-50 hover:text-gray-900 group relative">
         Add Visa
         <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gray-900 dark:bg-pink-500 transition-all duration-300 group-hover:w-full"></span>
       </NavLink>
@@ -63,8 +74,6 @@ const Header = () => {
         Applications
         <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gray-900 dark:bg-pink-500 transition-all duration-300 group-hover:w-full"></span>
       </NavLink>
-      {user ? (
-        <>
           {/* Tooltip for large screens */}
           <div className="hidden md:block">
             <img
