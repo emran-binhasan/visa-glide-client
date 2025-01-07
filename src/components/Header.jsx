@@ -75,7 +75,7 @@ const Header = () => {
         <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gray-900 dark:bg-pink-500 transition-all duration-300 group-hover:w-full"></span>
       </NavLink>
           {/* Tooltip for large screens */}
-          <div className="hidden md:block">
+          <div className="hidden lg:block">
             <img
               src={user?.photoURL || "https://via.placeholder.com/40"}
               alt={user?.displayName || "User"}
@@ -102,7 +102,7 @@ const Header = () => {
               logOutUser();
               setIsMenuOpen(false); // Close menu after logout
             }}
-            className="block md:hidden text-gray-700  hover:text-gray-900"
+            className="block lg:hidden text-gray-700  hover:text-gray-900"
           >
             Logout
           </button>
@@ -138,10 +138,10 @@ const Header = () => {
         </div>
 
         {/* Desktop Navigation */}
-        <nav className="hidden md:flex items-center space-x-8 text-lg">{navLinks}</nav>
+        <nav className="hidden lg:flex items-center space-x-8 text-lg">{navLinks}</nav>
 
         {/* Mobile Menu Button */}
-        <button className="md:hidden text-gray-700" onClick={toggleMenu}>
+        <button className="lg:hidden text-gray-700" onClick={toggleMenu}>
           {isMenuOpen ? '' : <FaBars className="h-6 w-6" />}
         </button>
       </div>
