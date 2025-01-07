@@ -54,7 +54,7 @@ const LatestVisas = () => {
              className="w-full h-40 object-cover rounded-t-lg"
            />
            <div className="p-3 flex-grow flex flex-col">
-             <h3 className="text-xl font-semibold text-gray-800 dark:text-white mb-2">
+             <h3 className="text-xl font-semibold text-gray-800 dark:text-white mb-1">
                {visa.countryName}
              </h3>
              <p className="text-gray-600 dark:text-gray-400 text-sm mb-1 absolute py-1 px-2 bg-white shadow-lg rounded-lg top-2 left-2">

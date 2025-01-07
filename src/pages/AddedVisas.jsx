@@ -127,71 +127,61 @@ const AddedVisas = () => {
 
   return (
     <div className="container mx-auto py-5 my-5 dark:bg-gray-800 dark:text-gray-400">
-      <h2 className="text-xl md:text-3xl font-medium text-center mb-5">Added Visas</h2>
+      <h2 className="text-xl md:text-3xl font-medium text-center mb-1">Added Visas</h2>
+      <p className="text-lg text-gray-600 dark:text-gray-400 mt-2 text-center w-3/4 mx-auto mb-5">
+        List of visa you've added 
+      </p>
 
       {/* Display visa cards */}
-      {visas.length > 0 ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {visas.map((visa) => (
-            <div
-              key={visa._id}
-              className="bg-white dark:bg-gray-700 border rounded-lg shadow-md hover:shadow-lg transition-shadow"
-            >
-              <div className="h-48 bg-gray-50 dark:bg-gray-900 flex items-center justify-center border-b">
-                <img
-                  src={visa.countryImage}
-                  alt={`Flag of ${visa.countryName}`}
-                  className="max-h-full max-w-full object-contain"
-                />
-              </div>
-              <div className="space-y-4 p-6">
-                <h3 className="text-xl font-semibold">{visa.countryName}</h3>
-                <p className="text-lg dark:text-gray-400">
-                  <strong>Visa Type:</strong> {visa.visaType}
-                </p>
-                <p className="text-lg dark:text-gray-400">
-                  <strong>Processing Time:</strong> {visa.processingTime} Days
-                </p>
-                <p className="text-lg dark:text-gray-400">
-                  <strong>Fee:</strong> ${visa.fee}
-                </p>
-                <p className="text-lg dark:text-gray-400">
-                  <strong>Validity:</strong> {visa.validity} Year
-                </p>
-
-                {visa.applicationMethods && visa.applicationMethods.length > 0 && (
-                  <div className="mt-6">
-                    <h2 className="text-xl font-medium dark:text-gray-200 mb-3">
-                      Application Methods
-                    </h2>
-                    <ul className="list-disc list-inside dark:text-gray-400 space-y-2">
-                      {visa.applicationMethods.map((each, index) => (
-                        <li key={index}>{each}</li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
-
-                <div className="mt-4 flex gap-4">
-                  <button
+      {visas.length > 0 ?(
+        <div className="overflow-x-auto">
+          <table className="table-auto w-full border-collapse border border-gray-300 dark:border-gray-600">
+            <thead>
+              <tr className="bg-gray-200 dark:bg-gray-700">
+                <th className="border border-gray-300 dark:border-gray-600 px-4 py-2">Country</th>
+                <th className="border border-gray-300 dark:border-gray-600 px-4 py-2">Visa Type</th>
+                <th className="border border-gray-300 dark:border-gray-600 px-4 py-2">Processing Time</th>
+                <th className="border border-gray-300 dark:border-gray-600 px-4 py-2">Fee</th>
+                <th className="border border-gray-300 dark:border-gray-600 px-4 py-2">Validity</th>
+                <th className="border border-gray-300 dark:border-gray-600 px-4 py-2">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {visas.map((visa) => (
+                <tr key={visa._id} className="hover:bg-gray-100 dark:hover:bg-gray-700">
+                  <td className="border border-gray-300 dark:border-gray-600 px-4 py-2">
+                    <img
+                      src={visa.countryImage}
+                      alt={`Flag of ${visa.countryName}`}
+                      className="inline-block w-8 h-8 rounded-full mr-2"
+                    />
+                    {visa.countryName}
+                  </td>
+                  <td className="border border-gray-300 dark:border-gray-600 px-4 py-2">{visa.visaType}</td>
+                  <td className="border border-gray-300 dark:border-gray-600 px-4 py-2">{visa.processingTime} Days</td>
+                  <td className="border border-gray-300 dark:border-gray-600 px-4 py-2">${visa.fee}</td>
+                  <td className="border border-gray-300 dark:border-gray-600 px-4 py-2">{visa.validity} Year</td>
+                  <td className="border border-gray-300 dark:border-gray-600 px-4 py-2">
+                    <button
+                      onClick={() => handleDeleteVisa(visa._id)}
+                      className="bg-red-600 text-white px-3 py-1 rounded-md hover:bg-red-700 transition-colors mr-2"
+                    >
+                      Delete
+                    </button>
+                    <button
                     onClick={() => {
                       setCurrentVisa(visa);
                       setIsModalOpen(true);
                     }}
-                    className="bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition-colors"
-                  >
-                    Update
-                  </button>
-                  <button
-                    onClick={() => handleDeleteVisa(visa._id)}
-                    className="bg-red-600 text-white py-2 px-4 rounded-md hover:bg-red-700 transition-colors"
-                  >
-                    Delete
-                  </button>
-                </div>
-              </div>
-            </div>
-          ))}
+                      className="bg-blue-600 text-white px-3 py-1 rounded-md hover:bg-blue-700 transition-colors"
+                    >
+                      Update
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
       ) : (
         <p className="text-center text-lg dark:text-gray-400">No visas have been added yet.</p>
