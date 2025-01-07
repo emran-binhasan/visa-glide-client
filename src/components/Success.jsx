@@ -10,7 +10,7 @@ import {
 const Success = () => {
   return (
     <div className="bg-gradient-to-br from-blue-100 via-green-100 to-purple-100 py-16 px-6 sm:px-8 lg:px-16 dark:bg-gradient-to-br dark:from-gray-700 dark:via-gray-800 dark:to-gray-800">
-      <div className="max-w-7xl mx-auto text-center space-y-10">
+      <div className="max-w-7xl mx-auto text-center space-y-10 px-4 sm:px-6 lg:px-8">
         <div className="space-y-2">
           <h2 className="text-4xl text-gray-800 dark:text-gray-400">
             Our Achievements
@@ -21,7 +21,7 @@ const Success = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {/* User Count */}
           <div className="p-4 bg-white dark:bg-gray-800 dark:border rounded-xl shadow-lg hover:shadow-xl transition-transform duration-300 ease-in-out transform hover:scale-105">
             <div className="flex items-center justify-center">

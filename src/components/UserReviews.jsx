@@ -29,7 +29,7 @@ const UserReviews = () => {
 
   return (
     <section className="bg-gray-50 py-14 dark:bg-gray-900">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="text-center mb-12 space-y-2">
           <h2 className="text-4xl text-gray-800 dark:text-gray-400">

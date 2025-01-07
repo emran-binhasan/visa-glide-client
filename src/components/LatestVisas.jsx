@@ -10,7 +10,7 @@ const LatestVisas = () => {
   useEffect(() => {
     const fetchLatestVisas = async () => {
       try {
-        const response = await fetch("https://visa-glide-server.vercel.app/visas/6");
+        const response = await fetch("https://visa-glide-server.vercel.app/visas/8");
         const data = await response.json();
         setLatestVisas(data);
       } catch (error) {
@@ -23,7 +23,7 @@ const LatestVisas = () => {
   
   return (
     <section className="latest-visas-section py-8 bg-gradient-to-br from-[#d4b5e5] to-[#bef7ec] dark:bg-gradient-to-br dark:from-gray-900 dark:via-gray-800 dark:to-gray-700">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 {/* Section Header */}
                 <div className="text-center mb-12 space-y-2">
           <h2 className="text-4xl text-gray-800 dark:text-gray-400">
@@ -45,7 +45,7 @@ const LatestVisas = () => {
             </Slide>
           </p>
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {latestVisas.map((visa) => (
            <div className="visa-card border relative rounded-lg shadow-md hover:shadow-lg transition-shadow bg-white dark:bg-gray-900 flex flex-col">
            <img

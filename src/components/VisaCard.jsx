@@ -43,7 +43,7 @@ const VisaCard = ({ visa }) => {
         </p>
         <Link
           to={`/visa/${_id}`}
-          className="w-full bg-blue-600 text-white py-2 px-4 rounded-md text-center font-semibold hover:bg-blue-700 transition-colors"
+          className="w-full bg-blue-600 text-white text-center font-medium py-2 rounded-lg hover:bg-blue-700 transition-colors mb-1 dark:bg-blue-800 dark:hover:bg-blue-900 mt-auto"
         >
           View Details
         </Link>
