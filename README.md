@@ -37,3 +37,32 @@ Visa Glide is a user-friendly platform designed to streamline the visa applicati
 - **State Management**:
   - Context API
 
+---
+
+
+## Local Setup Guide:
+
+### 1. Clone the repository:
+Clone the project repository to your local machine by running the following command in your terminal:
+
+git clone https://github.com/emran-binhasan/dev-emran.git
+
+
+
+### 2. Navigate to the project directory:
+Once the repository is cloned, navigate into the project folder:
+
+cd <your-project-folder>
+
+### 3. Install dependencies:
+Install all the necessary dependencies for the project by running:
+
+npm install
+
+
+### 5. Run the local development server:
+After installing the dependencies and setting up any environment variables, start the local development server by running:
+
+npm run dev
+
+By default, the project will be available at `http://localhost:3000`.
